@@ -16,11 +16,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'http://127.0.0.1:5173',
-    process.env.FRONTEND_URL // Add this so Render knows to accept requests from your Netlify app
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Dynamically allow any origin for this assignment to prevent CORS deployment headaches
+    callback(null, true);
+  },
   credentials: true, // Allow cookies to be sent
 }));
 app.use(express.json());
